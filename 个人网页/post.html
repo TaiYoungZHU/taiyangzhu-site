@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Post — Taiyang Zhu</title>
+<link rel="stylesheet" href="assets/css/base.css">
+</head>
+<body>
+<nav class="topnav"><div class="brand"><a href="/">Taiyang Zhu</a></div></nav>
+<main class="container">
+  <div id="post-content">Loading…</div>
+  <p><a href="/blog.html">← Back to blog</a></p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const file = urlParams.get('file');
+if(!file){ document.getElementById('post-content').innerText = 'No file specified.'; }
+else{
+  fetch('/posts/' + file)
+    .then(r => r.text())
+    .then(md => {
+      document.getElementById('post-content').innerHTML = marked.parse(md);
+    })
+    .catch(err => { document.getElementById('post-content').innerText = 'Failed to load post.'; });
+}
+</script>
+</body>
+</html>
