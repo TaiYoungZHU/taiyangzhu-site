@@ -2,7 +2,7 @@
 const resources = {
   en: {
     name: "Taiyang Zhu",
-    title: "PhD Student in Finance",
+    title: "PhD Student in Finance at Nottingham University Business School China",
     hero_summary: "Research on asset pricing, machine learning and fintech.",
     view_pubs: "View publications →",
     latest_post: "Latest Blog",
@@ -13,7 +13,7 @@ const resources = {
     nav_blog: "Blog"
   },
   zh: {
-    name: "朱太阳",
+    name: "朱泰洋",
     title: "金融学博士生",
     hero_summary: "研究方向：资产定价、机器学习与金融科技。",
     view_pubs: "查看论文 →",
