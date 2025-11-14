@@ -18,7 +18,7 @@ fetch('/data/publications.json').then(r=>r.json()).then(list=>{
   el.innerHTML = '';
   const byYear = {};
   list.forEach(p=>{
-    const y = p.year || '9999';
+    const y = (p.year || p.date?.slice(0,4)) || '9999';
     byYear[y] = byYear[y] || [];
     byYear[y].push(p);
   });
