@@ -1,10 +1,30 @@
 [
   {
-    "id": "zhu2024example",
-    "title": "An Example Paper",
-    "authors": "Taiyang Zhu, A. Coauthor",
-    "venue": "Journal of Finance",
-    "year": "2024",
-    "url": "https://example.com/paper.pdf"
+ "title": "Latent factor model in asset pricing: A deep learning approach in the Chinese stock market",
+  "authors": [
+    "Taiyang Zhu"
+  ],
+  "date": "2025-01-01",
+  "publication": "Finance Research Letters",
+  "volume": "86",
+  "pages": "108519",
+  "issn": "1544-6123",
+  "doi": "10.1016/j.frl.2025.108519",
+  "url": "https://www.sciencedirect.com/science/article/pii/S1544612325017738",
+  "keywords": [
+    "Deep learning",
+    "Latent factors",
+    "Asset pricing",
+    "Chinese stock market"
+  ],
+  "abstract": "We construct six deep factors—value, intangibles, investment, profitability, frictions and momentum—using Deep Neural Networks (DNNs) trained on distinct characteristic categories. These factors exhibit significant risk exposures and capture unique information beyond the factors in the Fama–French 5-factor model. Using monthly data from the Chinese stock market over the period 2005–2024, we find that momentum, value, and frictions are the most influential factor groups overall. However, their relative importance varies across portfolios: momentum effects tend to weaken, while value and frictions-related factors become more dominant. Our approach improves interpretability in deep learning-based asset pricing, offering a systematic framework for analyzing characteristic-driven returns.",
+  "featured": true,
+  "tags": [
+    "Deep learning",
+    "Asset pricing",
+    "Latent factors",
+    "China"
+  ]
+    
   }
 ]
