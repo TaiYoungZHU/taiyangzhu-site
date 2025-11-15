@@ -19,3 +19,25 @@ body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helveti
 @media(max-width:900px){.hero{flex-direction:column;text-align:center}.cards{grid-template-columns:1fr}.topnav{padding:10px}}
 .pub{padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.04)}
 a.cta{color:var(--accent);font-weight:600;text-decoration:none}
+#ufo-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ufo {
+  position: absolute;
+  width: auto;
+  height: auto;
+  opacity: 0.85;
+  animation: float 8s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(255,255,220,0.8));
+}
+
+@keyframes float {
+  0% { transform: translateY(0) translateX(0) rotate(0deg); }
+  50% { transform: translateY(-10px) translateX(8px) rotate(2deg); }
+  100% { transform: translateY(0) translateX(0) rotate(0deg); }
+}
+
