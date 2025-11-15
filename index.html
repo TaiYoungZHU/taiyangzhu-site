@@ -1,128 +1,80 @@
-// assets/js/finmath.js
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Taiyang Zhu — Researcher</title>
+<link rel="stylesheet" href="assets/css/base.css">
 
-(function() {
-  const canvas = document.createElement('canvas');
-  canvas.id = 'finmath-layer';
-  canvas.style.position = 'fixed';
-  canvas.style.top = 0;
-  canvas.style.left = 0;
-  canvas.style.width = '100%';
-  canvas.style.height = '100%';
-  canvas.style.pointerEvents = 'none';
-  canvas.style.zIndex = 0; // 在背景层
-  document.body.appendChild(canvas);
+<!-- Existing scripts -->
+<script defer src="assets/js/i18n.js"></script>
+<script defer src="assets/js/background.js"></script>
 
-  const ctx = canvas.getContext('2d');
+<!-- MathJax for formulas -->
+<script>
+window.MathJax = {
+  tex: {inlineMath: [['$','$'], ['\\(','\\)']]},
+  svg: {fontCache: 'global'}
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
 
-  let W = canvas.width = window.innerWidth;
-  let H = canvas.height = window.innerHeight;
+<body>
 
-  window.addEventListener('resize', () => {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  });
+<!-- UFO layer -->
+<div id="ufo-layer"></div>
 
-  // 公式列表
-  const formulas = [
-    "E[R_i] = R_f + β_i(E[R_m] - R_f)", // CAPM
-    "C = S N(d_1) - K e^{-rt} N(d_2)", // BSM
-    "dS_t = μ S_t dt + σ S_t dW_t", // GBM
-    "dV_t = κ(θ - V_t) dt + ξ sqrt(V_t) dW_t", // Heston
-    "P(X ≤ x) = Φ((x-μ)/σ)" // Normal distribution
-  ];
+<!-- Financial math background layer -->
+<div id="finmath-layer"></div>
 
-  // 生成漂浮对象
-  const floaters = [];
-  const numFloaters = 30;
+<!-- Background canvas -->
+<canvas id="bg"></canvas>
 
-  for (let i = 0; i < numFloaters; i++) {
-    const formula = formulas[Math.floor(Math.random() * formulas.length)];
-    floaters.push({
-      text: formula,
-      x: Math.random() * W,
-      y: Math.random() * H,
-      angle: Math.random() * 2 * Math.PI,
-      size: 16 + Math.random() * 24,
-      alpha: 0.2 + Math.random() * 0.5,
-      speedY: 0.2 + Math.random() * 0.6,
-      speedX: -0.2 + Math.random() * 0.4,
-      rotateSpeed: (-0.01 + Math.random() * 0.02)
-    });
-  }
+<!-- Navigation -->
+<nav class="topnav" role="navigation" aria-label="Main navigation">
+  <div class="brand"><a href="/">Taiyang Zhu</a></div>
+  <div class="navlinks">
+    <a href="/publications.html" data-i18n="nav_publications">Publications</a>
+    <a href="/blog.html" data-i18n="nav_blog">Blog</a>
+    <a href="/cv.pdf" target="_blank">CV</a>
+    <button id="langbtn" aria-label="Language switch">EN / 中文</button>
+  </div>
+</nav>
 
-  // 生成正态分布漂浮对象
-  const curveFloaters = [];
-  const numCurves = 10;
-  for (let i = 0; i < numCurves; i++) {
-    curveFloaters.push({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      width: 60 + Math.random() * 100,
-      height: 40 + Math.random() * 60,
-      alpha: 0.1 + Math.random() * 0.2,
-      speedY: 0.1 + Math.random() * 0.3
-    });
-  }
+<main id="main" class="container">
+  <section class="hero">
+    <img class="avatar" src="/assets/img/avatar.jpg" alt="Avatar">
+    <div class="hero-text">
+      <h1 data-i18n="name">Taiyang Zhu</h1>
+      <p class="muted" data-i18n="title">PhD Student in Finance</p>
+      <p data-i18n="hero_summary">Research on asset pricing, machine learning and fintech.</p>
+      <p><a class="cta" href="/publications.html" data-i18n="view_pubs">View publications →</a></p>
+    </div>
+  </section>
 
-  function drawNormalCurve(f) {
-    ctx.save();
-    ctx.translate(f.x, f.y);
-    ctx.globalAlpha = f.alpha;
-    ctx.strokeStyle = 'rgba(0,255,255,0.5)';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    for (let i = -3; i <= 3; i += 0.1) {
-      let x = i * (f.width / 6);
-      let y = -Math.exp(-0.5 * i * i) * f.height;
-      if (i === -3) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.stroke();
-    ctx.restore();
-  }
+  <section class="cards">
+    <article class="card" aria-labelledby="latest-post-heading">
+      <h3 id="latest-post-heading" data-i18n="latest_post">Latest Blog</h3>
+      <div id="latest-post">Loading…</div>
+      <a href="/blog.html" class="link" data-i18n="see_blog">See all posts →</a>
+    </article>
 
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
+    <article class="card" aria-labelledby="research-heading">
+      <h3 id="research-heading" data-i18n="research">Research</h3>
+      <p data-i18n="research_summary">Short description or bullets...</p>
+    </article>
+  </section>
+</main>
 
-    // 公式漂浮
-    floaters.forEach(f => {
-      ctx.save();
-      ctx.translate(f.x, f.y);
-      ctx.rotate(f.angle);
-      ctx.globalAlpha = f.alpha;
-      ctx.font = `${f.size}px Arial`;
-      ctx.fillStyle = 'rgba(0,255,255,0.7)';
-      ctx.fillText(f.text, 0, 0);
-      ctx.restore();
+<!-- Scripts -->
+<script defer src="assets/js/blog.js"></script>
 
-      f.y -= f.speedY;
-      f.x += f.speedX;
-      f.angle += f.rotateSpeed;
-      f.alpha -= 0.0005;
+<!-- UFO animation script -->
+<script defer src="assets/js/ufo.js"></script>
 
-      if (f.alpha <= 0) {
-        f.x = Math.random() * W;
-        f.y = H + 20;
-        f.alpha = 0.2 + Math.random() * 0.5;
-        f.size = 16 + Math.random() * 24;
-        f.angle = Math.random() * 2 * Math.PI;
-      }
-    });
+<!-- Financial mathematics background script -->
+<script defer src="assets/js/finmath.js"></script>
 
-    // 正态分布曲线漂浮
-    curveFloaters.forEach(c => {
-      drawNormalCurve(c);
-      c.y -= c.speedY;
-      c.alpha -= 0.0002;
-      if (c.alpha <= 0) {
-        c.x = Math.random() * W;
-        c.y = H + 50;
-        c.alpha = 0.1 + Math.random() * 0.2;
-      }
-    });
-
-    requestAnimationFrame(draw);
-  }
-
-  draw();
-})();
+</body>
+</html>
