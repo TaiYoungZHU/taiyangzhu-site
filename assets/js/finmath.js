@@ -1,128 +1,73 @@
 // assets/js/finmath.js
+(function(){
+  const container = document.getElementById('finmath-layer');
+  container.style.position = 'fixed';
+  container.style.top = 0;
+  container.style.left = 0;
+  container.style.width = '100%';
+  container.style.height = '100%';
+  container.style.pointerEvents = 'none';
+  container.style.zIndex = 0;
 
-(function() {
-  const canvas = document.createElement('canvas');
-  canvas.id = 'finmath-layer';
-  canvas.style.position = 'fixed';
-  canvas.style.top = 0;
-  canvas.style.left = 0;
-  canvas.style.width = '100%';
-  canvas.style.height = '100%';
-  canvas.style.pointerEvents = 'none';
-  canvas.style.zIndex = 0; // 在背景层
-  document.body.appendChild(canvas);
-
-  const ctx = canvas.getContext('2d');
-
-  let W = canvas.width = window.innerWidth;
-  let H = canvas.height = window.innerHeight;
-
-  window.addEventListener('resize', () => {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  });
-
-  // 公式列表
   const formulas = [
-    "E[R_i] = R_f + β_i(E[R_m] - R_f)", // CAPM
-    "C = S N(d_1) - K e^{-rt} N(d_2)", // BSM
-    "dS_t = μ S_t dt + σ S_t dW_t", // GBM
-    "dV_t = κ(θ - V_t) dt + ξ sqrt(V_t) dW_t", // Heston
-    "P(X ≤ x) = Φ((x-μ)/σ)" // Normal distribution
+    "\\displaystyle E[R_i] = R_f + \\beta_i(E[R_m] - R_f)", // CAPM
+    "\\displaystyle C = S N(d_1) - K e^{-rt} N(d_2)", // BSM
+    "\\displaystyle dS_t = \\mu S_t dt + \\sigma S_t dW_t", // GBM
+    "\\displaystyle dV_t = \\kappa(\\theta - V_t) dt + \\xi \\sqrt{V_t} dW_t", // Heston
+    "\\displaystyle P(X \\le x) = \\Phi\\left(\\frac{x-\\mu}{\\sigma}\\right)" // Normal
   ];
 
-  // 生成漂浮对象
   const floaters = [];
-  const numFloaters = 30;
 
-  for (let i = 0; i < numFloaters; i++) {
-    const formula = formulas[Math.floor(Math.random() * formulas.length)];
+  const numFloaters = 20;
+  for(let i=0;i<numFloaters;i++){
+    const formula = formulas[Math.floor(Math.random()*formulas.length)];
+    const span = document.createElement('div');
+    span.innerHTML = `$$${formula}$$`; // MathJax渲染
+    span.style.position = 'absolute';
+    span.style.top = Math.random()*window.innerHeight+'px';
+    span.style.left = Math.random()*window.innerWidth+'px';
+    span.style.fontFamily = 'Times New Roman, serif';
+    span.style.fontSize = (16 + Math.random()*24)+'px';
+    span.style.color = 'rgba(0,0,0,0.6)'; // 黑色半透明
+    span.style.whiteSpace = 'nowrap';
+    container.appendChild(span);
     floaters.push({
-      text: formula,
-      x: Math.random() * W,
-      y: Math.random() * H,
-      angle: Math.random() * 2 * Math.PI,
-      size: 16 + Math.random() * 24,
-      alpha: 0.2 + Math.random() * 0.5,
-      speedY: 0.2 + Math.random() * 0.6,
-      speedX: -0.2 + Math.random() * 0.4,
-      rotateSpeed: (-0.01 + Math.random() * 0.02)
+      el: span,
+      x: parseFloat(span.style.left),
+      y: parseFloat(span.style.top),
+      speedX: -0.2 + Math.random()*0.4,
+      speedY: 0.1 + Math.random()*0.3,
+      rotate: Math.random()*360,
+      rotateSpeed: -0.2 + Math.random()*0.4,
+      alpha: 0.6 + Math.random()*0.4
     });
   }
 
-  // 生成正态分布漂浮对象
-  const curveFloaters = [];
-  const numCurves = 10;
-  for (let i = 0; i < numCurves; i++) {
-    curveFloaters.push({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      width: 60 + Math.random() * 100,
-      height: 40 + Math.random() * 60,
-      alpha: 0.1 + Math.random() * 0.2,
-      speedY: 0.1 + Math.random() * 0.3
-    });
-  }
-
-  function drawNormalCurve(f) {
-    ctx.save();
-    ctx.translate(f.x, f.y);
-    ctx.globalAlpha = f.alpha;
-    ctx.strokeStyle = 'rgba(0,255,255,0.5)';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    for (let i = -3; i <= 3; i += 0.1) {
-      let x = i * (f.width / 6);
-      let y = -Math.exp(-0.5 * i * i) * f.height;
-      if (i === -3) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-
-    // 公式漂浮
-    floaters.forEach(f => {
-      ctx.save();
-      ctx.translate(f.x, f.y);
-      ctx.rotate(f.angle);
-      ctx.globalAlpha = f.alpha;
-      ctx.font = `${f.size}px Arial`;
-      ctx.fillStyle = 'rgba(0,255,255,0.7)';
-      ctx.fillText(f.text, 0, 0);
-      ctx.restore();
-
-      f.y -= f.speedY;
+  function animate(){
+    floaters.forEach(f=>{
       f.x += f.speedX;
-      f.angle += f.rotateSpeed;
-      f.alpha -= 0.0005;
+      f.y -= f.speedY;
+      f.rotate += f.rotateSpeed;
 
-      if (f.alpha <= 0) {
-        f.x = Math.random() * W;
-        f.y = H + 20;
-        f.alpha = 0.2 + Math.random() * 0.5;
-        f.size = 16 + Math.random() * 24;
-        f.angle = Math.random() * 2 * Math.PI;
-      }
+      if(f.y < -50) f.y = window.innerHeight + 50;
+      if(f.x < -200) f.x = window.innerWidth + 200;
+      if(f.x > window.innerWidth + 200) f.x = -200;
+
+      f.el.style.top = f.y+'px';
+      f.el.style.left = f.x+'px';
+      f.el.style.transform = `rotate(${f.rotate}deg)`;
+      f.el.style.opacity = f.alpha;
     });
-
-    // 正态分布曲线漂浮
-    curveFloaters.forEach(c => {
-      drawNormalCurve(c);
-      c.y -= c.speedY;
-      c.alpha -= 0.0002;
-      if (c.alpha <= 0) {
-        c.x = Math.random() * W;
-        c.y = H + 50;
-        c.alpha = 0.1 + Math.random() * 0.2;
-      }
-    });
-
-    requestAnimationFrame(draw);
+    requestAnimationFrame(animate);
   }
 
-  draw();
+  // 初始化 MathJax
+  if(window.MathJax){
+    MathJax.typesetPromise().then(()=>{
+      animate();
+    });
+  } else {
+    animate();
+  }
 })();
