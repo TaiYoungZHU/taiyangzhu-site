@@ -1,7 +1,3 @@
-<body>
-<div id="ufo-layer"></div>
-<canvas id="bg"></canvas>
-<nav class="topnav" role="navigation" aria-label="Main navigation">
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,11 +5,21 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Taiyang Zhu — Researcher</title>
 <link rel="stylesheet" href="assets/css/base.css">
+
+<!-- Existing scripts -->
 <script defer src="assets/js/i18n.js"></script>
 <script defer src="assets/js/background.js"></script>
 </head>
+
 <body>
+
+<!-- UFO layer (new) -->
+<div id="ufo-layer"></div>
+
+<!-- Background canvas -->
 <canvas id="bg"></canvas>
+
+<!-- Navigation -->
 <nav class="topnav" role="navigation" aria-label="Main navigation">
   <div class="brand"><a href="/">Taiyang Zhu</a></div>
   <div class="navlinks">
@@ -49,6 +55,11 @@
   </section>
 </main>
 
-<script src="assets/js/blog.js" defer></script>
+<!-- Blog script -->
+<script defer src="assets/js/blog.js"></script>
+
+<!-- UFO animation script (new) — MUST be at the bottom -->
+<script src="assets/js/ufo.js"></script>
+
 </body>
 </html>
