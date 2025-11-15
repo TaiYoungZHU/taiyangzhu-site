@@ -10,11 +10,31 @@
   container.style.zIndex = 0;
 
   const formulas = [
+    // 原有公式
     "\\displaystyle E[R_i] = R_f + \\beta_i(E[R_m] - R_f)", // CAPM
     "\\displaystyle C = S N(d_1) - K e^{-rt} N(d_2)", // BSM
     "\\displaystyle dS_t = \\mu S_t dt + \\sigma S_t dW_t", // GBM
     "\\displaystyle dV_t = \\kappa(\\theta - V_t) dt + \\xi \\sqrt{V_t} dW_t", // Heston
-    "\\displaystyle P(X \\le x) = \\Phi\\left(\\frac{x-\\mu}{\\sigma}\\right)" // Normal
+    "\\displaystyle P(X \\le x) = \\Phi\\left(\\frac{x-\\mu}{\\sigma}\\right)", // Normal
+    
+    // 新增金融计量公式
+    "\\displaystyle \\hat{\\theta}_{GMM} = \\arg\\min_\\theta \\hat{g}(\\theta)' W \\hat{g}(\\theta)", // GMM
+    "\\displaystyle Y = \\alpha + \\tau D + \\epsilon, ", // DID
+    "\\displaystyle M_t = 1-\\beta'(R_t-E(R_t)", // SDF估计公式
+    "\\displaystyle \\hat{\\beta}_{FMB} = (X'X)^{-1}X'Y ", // FMB回归
+    
+    // 新增机器学习回归与维度约减
+    "\\displaystyle \\hat{\\beta}_{lasso} = \\arg\\min_\\beta \\left\\{ ||y-X\\beta||_2^2 + \\lambda||\\beta||_1 \\right\\}",
+    "\\displaystyle \\hat{\\beta}_{ridge} = \\arg\\min_\\beta \\left\\{ ||y-X\\beta||_2^2 + \\lambda||\\beta||_2^2 \\right\\}",
+    "\\displaystyle Z = X W \\text{ (PCA)}",
+    "\\displaystyle \\hat{\\beta}_{PLS} = \\arg\\max Cov(Xw, Y)",
+
+    // 新增优化与强化学习
+    "\\displaystyle \\theta_{t+1} = \\theta_t - \\eta \\nabla L(\\theta_t) \\text{(SGD)}",
+    "\\displaystyle Q(s_t,a_t) \\leftarrow Q(s_t,a_t) + \\alpha [r_t + \\gamma \\max_a Q(s_{t+1},a) - Q(s_t,a_t)] \\text{(Q-learning)}",
+
+    // 分类树
+    "\\displaystyle f(x) = \\sum_{m=1}^M \\gamma_m I(x \\in R_m) \\text{(CART)}"
   ];
 
   const floaters = [];
