@@ -9,11 +9,20 @@
 <!-- Existing scripts -->
 <script defer src="assets/js/i18n.js"></script>
 <script defer src="assets/js/background.js"></script>
+
+<!-- MathJax for formulas -->
+<script>
+window.MathJax = {
+  tex: {inlineMath: [['$','$'], ['\\(','\\)']]},
+  svg: {fontCache: 'global'}
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 
 <body>
 
-<!-- UFO layer (new) -->
+<!-- UFO layer -->
 <div id="ufo-layer"></div>
 
 <!-- Background canvas -->
@@ -53,13 +62,23 @@
       <p data-i18n="research_summary">Short description or bullets...</p>
     </article>
   </section>
+
+  <!-- FINMATH interactive panel -->
+  <section class="cards">
+    <article class="card">
+      <h3>Financial Mathematics Interactive Panel</h3>
+      <div id="finmath-panel"></div>
+    </article>
+  </section>
 </main>
 
-<!-- Blog script -->
+<!-- Scripts -->
 <script defer src="assets/js/blog.js"></script>
-
-<!-- UFO animation script (new) — MUST be at the bottom -->
 <script src="assets/js/ufo.js"></script>
+<!-- Chart.js CDN for finmath charts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- FinMath interactive panel -->
+<script defer src="assets/js/finmath.js"></script>
 
 </body>
 </html>
