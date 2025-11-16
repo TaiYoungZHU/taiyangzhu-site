@@ -20,21 +20,45 @@
     // 新增金融计量公式
     "\\displaystyle \\hat{\\theta}_{GMM} = \\arg\\min_\\theta \\hat{g}(\\theta)' W \\hat{g}(\\theta)", // GMM
     "\\displaystyle Y = \\alpha + \\tau D + \\epsilon, ", // DID
-    "\\displaystyle M_t = 1-\\beta'(R_t-E(R_t)", // SDF估计公式
+    "\\displaystyle M_t = 1-\\beta'(R_t-E(R_t))", // SDF估计公式
     "\\displaystyle \\hat{\\beta}_{FMB} = (X'X)^{-1}X'Y ", // FMB回归
+    "\\displaystyle \\Sigma^{-1}\\omega\\Sigma ",
+    "\\displaystyle \\Delta = \\frac{\\partial V}{\\partial S}", // Delta
+    "\\displaystyle \\Gamma = \\frac{\\partial^2 V}{\\partial S^2}", // Gamma
+    "\\displaystyle \\Theta = \\frac{\\partial V}{\\partial t}", // Theta
+    "\\displaystyle \\Vega = \\frac{\\partial V}{\\partial \\sigma}", // Vega
+    "\\displaystyle \\Rho = \\frac{\\partial V}{\\partial r}", // Rho
+
+    // Black-Scholes Greeks for reference
+    "\\displaystyle \\Delta_{call} = N(d_1)", 
+    "\\displaystyle \\Delta_{put} = N(d_1)-1",
+
+    "\\displaystyle \\Gamma = \\frac{N'(d_1)}{S \\sigma \\sqrt{T}}",
+
+    "\\displaystyle \\Theta_{call} = -\\frac{S N'(d_1)\\sigma}{2\\sqrt{T}} - r K e^{-rT} N(d_2)",
+    "\\displaystyle \\Theta_{put} = -\\frac{S N'(d_1)\\sigma}{2\\sqrt{T}} + r K e^{-rT} N(-d_2)",
+
+    "\\displaystyle \\Vega = S N'(d_1)\\sqrt{T}",
+
+    "\\displaystyle \\Rho_{call} = K T e^{-rT} N(d_2)",
+    "\\displaystyle \\Rho_{put} = - K T e^{-rT} N(-d_2)",
+
+    "\\displaystyle d_1 = \\frac{\\ln(S/K) + (r + \\sigma^2/2)T}{\\sigma \\sqrt{T}}",
+    "\\displaystyle d_2 = d_1 - \\sigma\\sqrt{T}",
+
     
     // 新增机器学习回归与维度约减
     "\\displaystyle \\hat{\\beta}_{lasso} = \\arg\\min_\\beta \\left\\{ ||y-X\\beta||_2^2 + \\lambda||\\beta||_1 \\right\\}",
     "\\displaystyle \\hat{\\beta}_{ridge} = \\arg\\min_\\beta \\left\\{ ||y-X\\beta||_2^2 + \\lambda||\\beta||_2^2 \\right\\}",
-    "\\displaystyle Z = X W \\text{ (PCA)}",
+    "\\displaystyle Z = X W ",
     "\\displaystyle \\hat{\\beta}_{PLS} = \\arg\\max Cov(Xw, Y)",
 
     // 新增优化与强化学习
-    "\\displaystyle \\theta_{t+1} = \\theta_t - \\eta \\nabla L(\\theta_t) \\text{(SGD)}",
-    "\\displaystyle Q(s_t,a_t) \\leftarrow Q(s_t,a_t) + \\alpha [r_t + \\gamma \\max_a Q(s_{t+1},a) - Q(s_t,a_t)] \\text{(Q-learning)}",
+    "\\displaystyle \\theta_{t+1} = \\theta_t - \\eta \\nabla L(\\theta_t)",
+    "\\displaystyle Q(s_t,a_t) \\leftarrow Q(s_t,a_t) + \\alpha [r_t + \\gamma \\max_a Q(s_{t+1},a) - Q(s_t,a_t)]",
 
     // 分类树
-    "\\displaystyle f(x) = \\sum_{m=1}^M \\gamma_m I(x \\in R_m) \\text{(CART)}"
+    "\\displaystyle f(x) = \\sum_{m=1}^M \\gamma_m I(x \\in R_m)"
   ];
 
   const floaters = [];
