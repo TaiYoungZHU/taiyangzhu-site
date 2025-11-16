@@ -26,7 +26,7 @@
     "\\displaystyle \\Delta = \\frac{\\partial V}{\\partial S}", // Delta
     "\\displaystyle \\Gamma = \\frac{\\partial^2 V}{\\partial S^2}", // Gamma
     "\\displaystyle \\Theta = \\frac{\\partial V}{\\partial t}", // Theta
-    "\\displaystyle \Vartheta = \\frac{\\partial V}{\\partial \\sigma}", // Vega
+    "\\displaystyle V = \\frac{\\partial V}{\\partial \\sigma}", // Vega
     "\\displaystyle \\rho = \\frac{\\partial V}{\\partial r}", // Rho
 
     // Black-Scholes Greeks for reference
@@ -38,10 +38,10 @@
     "\\displaystyle \\Theta_{call} = -\\frac{S N'(d_1)\\sigma}{2\\sqrt{T}} - r K e^{-rT} N(d_2)",
     "\\displaystyle \\Theta_{put} = -\\frac{S N'(d_1)\\sigma}{2\\sqrt{T}} + r K e^{-rT} N(-d_2)",
 
-    "\\displaystyle \Vartheta = S N'(d_1)\\sqrt{T}",
+    "\\displaystyle V = S N'(d_1)\\sqrt{T}",
 
-    "\\displaystyle \\pho_{call} = K T e^{-rT} N(d_2)",
-    "\\displaystyle \\pho_{put} = - K T e^{-rT} N(-d_2)",
+    "\\displaystyle \\rho_{call} = K T e^{-rT} N(d_2)",
+    "\\displaystyle \\rho_{put} = - K T e^{-rT} N(-d_2)",
 
     "\\displaystyle d_1 = \\frac{\\ln(S/K) + (r + \\sigma^2/2)T}{\\sigma \\sqrt{T}}",
     "\\displaystyle d_2 = d_1 - \\sigma\\sqrt{T}",
